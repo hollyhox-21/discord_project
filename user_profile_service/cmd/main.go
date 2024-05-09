@@ -5,8 +5,13 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	_ "github.com/hollyhox-21/discord_project/user_profile_service/docs"
 )
 
+// @title			UserProfileService
+// @version			0.0.1
+// @description		Сервис передачи информации о пользователе
+// @BasePath		/api
 func main() {
 	r := chi.NewRouter()
 

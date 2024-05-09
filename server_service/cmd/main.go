@@ -7,6 +7,10 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// @title			ServerService
+// @version			0.0.1
+// @description		Сервис передачи информации о сервере
+// @BasePath		/api
 func main() {
 	r := chi.NewRouter()
 

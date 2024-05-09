@@ -5,8 +5,13 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	_ "github.com/hollyhox-21/discord_project/search_service/docs"
 )
 
+// @title			SearchService
+// @version		0.0.1
+// @description	Сервис полнотекствого поиска
+// @BasePath		/api
 func main() {
 	r := chi.NewRouter()
 

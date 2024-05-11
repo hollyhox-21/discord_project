@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package github.com.hollyhox_21.discord_project.search_service;
+
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/hollyhox-21/discord_project/search_service/pkg/api/search;search";
+
+message SearchServerRequest {
+  uint64 server_name = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SearchServerResponse {
+  uint64            server_id = 1 [json_name = "server_id"];
+  string            server_name = 2 [json_name = "server_name"];
+  string            about_server = 3 [json_name = "about_server"];
+  string            avatar_server_url = 4 [json_name = "avatar_server_url"];
+  repeated string   users = 5 [json_name = "users"];
+}
+
+message SearchUserRequest {
+  uint64 nickname = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SearchUserResponse {
+  uint64  user_id = 1 [json_name = "user_id"];
+  string  nickname = 2 [json_name = "nickname"];
+  string  email = 3 [json_name = "email"];
+  string  about_user = 4 [json_name = "about_user"];
+  string  avatar_user_url = 5 [json_name = "avatar_user_url"];
+}

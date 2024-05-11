@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package github.com.hollyhox_21.discord_project.search_service;
+
+import "search/messages.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+option go_package = "github.com/hollyhox-21/discord_project/search_service/pkg/api/search;search";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Search service";
+    version: "1.0";
+    contact: {
+      name: "";
+    };
+  };
+  external_docs: {
+    url: "";
+    description: "Сервис полнотекстового поиска";
+  };
+  schemes: HTTP;
+  schemes: HTTPS;
+};
+
+service SearchService {
+  rpc SearchServer(SearchServerRequest) returns (SearchServerResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/search/server/{server_name}"
+    };
+  }
+  rpc SearchUser(SearchUserRequest) returns (SearchUserResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/search/user/{nickname}"
+    };
+  }
+}

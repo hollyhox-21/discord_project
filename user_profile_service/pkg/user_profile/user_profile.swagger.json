@@ -1,0 +1,303 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User profile service",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "UserProfileService"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/user": {
+      "post": {
+        "operationId": "UserProfileService_CreateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_profile_serviceCreateProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user_profile_serviceCreateProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserProfileService"
+        ]
+      }
+    },
+    "/api/v1/user/{user_id}": {
+      "get": {
+        "operationId": "UserProfileService_GetProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_profile_serviceGetProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "user_id - уникальный идентификатор пользователя",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "UserProfileService"
+        ]
+      },
+      "delete": {
+        "operationId": "UserProfileService_DeleteProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_profile_serviceDeleteProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "UserProfileService"
+        ]
+      },
+      "put": {
+        "operationId": "UserProfileService_UpdateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/user_profile_serviceUpdateProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserProfileServiceUpdateProfileBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserProfileService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "UserProfileServiceUpdateProfileBody": {
+      "type": "object",
+      "properties": {
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "about_user": {
+          "type": "string"
+        },
+        "avatar_photo_url": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateProfileRequest - запрос на обновление профиля"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "user_profile_serviceCreateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        },
+        "avatar_photo_url": {
+          "type": "string"
+        }
+      },
+      "title": "CreateProfileRequest - запрос на создание профиля",
+      "required": [
+        "nickname",
+        "email",
+        "password"
+      ]
+    },
+    "user_profile_serviceCreateProfileResponse": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "CreateProfileResponse - ответ на создание профиля"
+    },
+    "user_profile_serviceDeleteProfileResponse": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "format": "uint64"
+        }
+      },
+      "title": "DeleteProfileResponse - ответ на удаление профиля"
+    },
+    "user_profile_serviceGetProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/user_profile_serviceProfileInfo"
+        }
+      },
+      "title": "GetProfileResponse - ответ с информацией о пользователе"
+    },
+    "user_profile_serviceProfile": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "user_id - уникальный идентификатор пользователя"
+        },
+        "info": {
+          "$ref": "#/definitions/user_profile_serviceProfile",
+          "title": "info - информация о пользователе"
+        }
+      }
+    },
+    "user_profile_serviceProfileInfo": {
+      "type": "object",
+      "properties": {
+        "nickname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "aboutUser": {
+          "type": "string"
+        },
+        "avatarProfileUrl": {
+          "type": "string"
+        }
+      },
+      "description": "ProfileInfo - информация профиля",
+      "title": "ProfileInfo"
+    },
+    "user_profile_serviceUpdateProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/user_profile_serviceProfile"
+        }
+      },
+      "title": "UpdateProfileResponse - ответ на обновление профиля"
+    }
+  },
+  "externalDocs": {
+    "description": "Сервис передачи информации о пользователе"
+  }
+}

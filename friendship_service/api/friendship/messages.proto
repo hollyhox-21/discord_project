@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package github.com.hollyhox_21.discord_project.friendship_service;
+
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/hollyhox-21/discord_project/friendship_service/pkg/api/friendship;friendship";
+
+message ProfileInfo {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ProfileInfo"
+      description: "ProfileInfo - информация профиля"
+    }
+  };
+  string  nickname = 1;
+  string  email = 2;
+  string  avatar_profile_url = 3;
+}
+
+message Profile {
+  // user_id - уникальный идентификатор пользователя
+  uint64 user_id = 1 [json_name = "user_id"];
+  // info - информация о пользователе
+  ProfileInfo info = 2 [json_name = "info"];
+}
+
+message FriendshipRequestRequest {
+  uint64 from_user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  uint64 to_user_id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message FriendshipListRequest {
+  uint64 user_id = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message FriendshipListResponse {
+  repeated Profile profiles = 1 [json_name = "profiles"];
+}
+
+message FriendshipDeleteRequest {
+  uint64 user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  uint64 delete_user_id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message FriendshipAcceptRequest {
+  uint64 from_user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  uint64 to_user_id = 2 [(google.api.field_behavior) = REQUIRED];
+}
+
+message FriendshipDeclineRequest {
+  uint64 from_user_id = 1 [(google.api.field_behavior) = REQUIRED];
+  uint64 to_user_id = 2 [(google.api.field_behavior) = REQUIRED];
+}

@@ -23,9 +23,9 @@ message ProfileInfo {
 
 message Profile {
   // user_id - уникальный идентификатор пользователя
-  uint64 user_id = 1 [json_name = "user_id"];
+  uint64      user_id = 1 [json_name = "user_id"];
   // info - информация о пользователе
-  Profile info = 2 [json_name = "info"];
+  ProfileInfo info = 2 [json_name = "info"];
 }
 
 // GetProfileRequest - запрос информации о пользователе
@@ -36,7 +36,7 @@ message GetProfileRequest {
 
 // GetProfileResponse - ответ с информацией о пользователе
 message GetProfileResponse {
-  ProfileInfo profile = 1 [json_name = "profile"];
+  Profile profile = 1 [json_name = "profile"];
 }
 
 // CreateProfileRequest - запрос на создание профиля

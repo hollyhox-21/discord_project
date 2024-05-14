@@ -938,7 +938,7 @@ func (m *Profile) UnmarshalVT(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Info == nil {
-				m.Info = &Profile{}
+				m.Info = &ProfileInfo{}
 			}
 			if err := m.Info.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -1095,7 +1095,7 @@ func (m *GetProfileResponse) UnmarshalVT(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Profile == nil {
-				m.Profile = &ProfileInfo{}
+				m.Profile = &Profile{}
 			}
 			if err := m.Profile.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err

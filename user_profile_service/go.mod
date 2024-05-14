@@ -6,6 +6,7 @@ require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.1-20240508200655-46a4cf4ba109.1
 	github.com/bufbuild/protovalidate-go v0.6.2
 	github.com/go-chi/chi/v5 v5.0.12
+	github.com/go-chi/cors v1.2.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/planetscale/vtprotobuf v0.6.0
 	github.com/swaggest/swgui v1.8.1

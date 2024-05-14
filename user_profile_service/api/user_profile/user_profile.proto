@@ -21,6 +21,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
     url: "";
     description: "Сервис передачи информации о пользователе";
   };
+  host: "0.0.0.0:8080";
   schemes: HTTP;
   schemes: HTTPS;
 };

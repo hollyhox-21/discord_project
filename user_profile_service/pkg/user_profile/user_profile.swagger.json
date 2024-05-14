@@ -10,6 +10,7 @@
       "name": "UserProfileService"
     }
   ],
+  "host": "0.0.0.0:8080",
   "schemes": [
     "http",
     "https"
@@ -249,7 +250,7 @@
       "type": "object",
       "properties": {
         "profile": {
-          "$ref": "#/definitions/user_profile_serviceProfileInfo"
+          "$ref": "#/definitions/user_profile_serviceProfile"
         }
       },
       "title": "GetProfileResponse - ответ с информацией о пользователе"
@@ -263,7 +264,7 @@
           "title": "user_id - уникальный идентификатор пользователя"
         },
         "info": {
-          "$ref": "#/definitions/user_profile_serviceProfile",
+          "$ref": "#/definitions/user_profile_serviceProfileInfo",
           "title": "info - информация о пользователе"
         }
       }

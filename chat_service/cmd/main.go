@@ -7,6 +7,10 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// @title			ChatService
+// @version		0.0.1
+// @description	Сервис отправки сообщений
+// @BasePath		/api
 func main() {
 	r := chi.NewRouter()
 

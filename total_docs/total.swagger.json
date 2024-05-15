@@ -1,0 +1,1372 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Discord_project",
+    "title": "Discord project",
+    "contact": {},
+    "version": "0.0.1"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/v1/download/{file_id}": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "multipart/form-data"
+        ],
+        "tags": [
+          "media_service"
+        ],
+        "summary": "Скачивание файла",
+        "operationId": "DownloadFile",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "file id",
+            "name": "file_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/friend/accept": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "friendship_service"
+        ],
+        "summary": "Подтвердить запрос дружбы",
+        "operationId": "AcceptFriendship",
+        "parameters": [
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.AcceptFriendshipRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/friend/decline": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "friendship_service"
+        ],
+        "summary": "Отклонить запрос дружбы",
+        "operationId": "DeclineFriendship",
+        "parameters": [
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.DeclineFriendshipRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/friend/list/{user_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "friendship_service"
+        ],
+        "summary": "Получить список друзей",
+        "operationId": "ListFriendship",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "user id",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/api.ListFriendshipResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/friend/request": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "friendship_service"
+        ],
+        "summary": "Запрос на дружбу",
+        "operationId": "RequestFriendship",
+        "parameters": [
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.RequestFriendshipRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "friendship_service"
+        ],
+        "summary": "Удалить пользователя из друзей",
+        "operationId": "DeleteFriendship",
+        "parameters": [
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.DeleteFriendshipRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/message/send": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "tags": [
+          "chat_service"
+        ],
+        "summary": "отправка сообщения",
+        "operationId": "MessageSend",
+        "parameters": [
+          {
+            "enum": [
+              "unknown",
+              "server",
+              "user"
+            ],
+            "type": "string",
+            "description": "string enums",
+            "name": "typeMsg",
+            "in": "query",
+            "required": true
+          },
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.MessageSendRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/message/server/history/{server_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "chat_service"
+        ],
+        "summary": "Получение истории сообщений сервера",
+        "operationId": "GetServerChatHistory",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "server id",
+            "name": "server_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.GetServerChatHistoryResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/message/user/history/{user_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "chat_service"
+        ],
+        "summary": "Получение истории приватного чата",
+        "operationId": "GetPrivetChatHistory",
+        "parameters": [
+          {
+            "type": "string",
+            "description": " id user recipient",
+            "name": "recipient_user_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "user id",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.GetPrivetChatHistoryResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/server/{server_name}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "search_service"
+        ],
+        "summary": "Поиск сервера по server_name",
+        "operationId": "SearchServer",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "server name",
+            "name": "server_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.SearchServerResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/user/{nickname}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "search_service"
+        ],
+        "summary": "Поиск пользователя по nickname",
+        "operationId": "SearchUser",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "user nickname",
+            "name": "nickname",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.SearchUserResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/server": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "server_service"
+        ],
+        "summary": "Создание нового ceрвера",
+        "operationId": "CreateServer",
+        "parameters": [
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.CreateServerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.CreateServerResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/server/invite/{server_id}": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "tags": [
+          "server_service"
+        ],
+        "summary": "Пригласить пользователя на сервер",
+        "operationId": "InviteToServer",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "server id",
+            "name": "server_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.InviteToServerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/server/subscribe/{server_id}": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "tags": [
+          "server_service"
+        ],
+        "summary": "Подписаться на серверу",
+        "operationId": "SubscribeServer",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "server id",
+            "name": "server_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.SubscribeServerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/server/unsubscribe/{server_id}": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "tags": [
+          "server_service"
+        ],
+        "summary": "Отписаться от сервера",
+        "operationId": "UnsubscribeServer",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "server id",
+            "name": "server_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.UnsubscribeServerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/server/user/{user_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "server_service"
+        ],
+        "summary": "Получить список серверов в которых состоит пользователь и созданные сервера",
+        "operationId": "ServerList",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "user id",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.ServerListResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/server/{server_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "server_service"
+        ],
+        "summary": "Получение информации о сервере",
+        "operationId": "GetServer",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "server id",
+            "name": "server_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.GetServerResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/upload/{user_id}": {
+      "post": {
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "media_service"
+        ],
+        "summary": "Загрузка файла",
+        "operationId": "UploadFile",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "user id",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "file",
+            "description": "query param",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.UploadFileResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/user": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "user_profile_service"
+        ],
+        "summary": "Создание нового пользователя",
+        "operationId": "CreateUser",
+        "parameters": [
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.CreateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.CreateUserResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "user_profile_service"
+        ],
+        "summary": "Получение пользователя",
+        "operationId": "GetUser",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "user id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.GetUserResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "user_profile_service"
+        ],
+        "summary": "Обновление пользователя",
+        "operationId": "UpdateUser",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "user id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "query params",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api.UpdateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.UpdateUserResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      },
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "user_profile_service"
+        ],
+        "summary": "Удаление пользователя",
+        "operationId": "DeleteUser",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "user id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/api.DeleteUserResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.errorResp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "api.AcceptFriendshipRequest": {
+      "type": "object",
+      "required": [
+        "fromUserID",
+        "toUserID"
+      ],
+      "properties": {
+        "fromUserID": {
+          "type": "string"
+        },
+        "toUserID": {
+          "type": "string"
+        }
+      }
+    },
+    "api.CreateServerRequest": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "aboutServer": {
+          "type": "string"
+        },
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "api.CreateServerResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.CreateUserRequest": {
+      "type": "object",
+      "required": [
+        "email",
+        "nickname",
+        "password"
+      ],
+      "properties": {
+        "aboutUser": {
+          "type": "string"
+        },
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "api.CreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.DeclineFriendshipRequest": {
+      "type": "object",
+      "required": [
+        "fromUserID",
+        "toUserID"
+      ],
+      "properties": {
+        "fromUserID": {
+          "type": "string"
+        },
+        "toUserID": {
+          "type": "string"
+        }
+      }
+    },
+    "api.DeleteFriendshipRequest": {
+      "type": "object",
+      "required": [
+        "deleteUserID",
+        "userID"
+      ],
+      "properties": {
+        "deleteUserID": {
+          "type": "string"
+        },
+        "userID": {
+          "type": "string"
+        }
+      }
+    },
+    "api.DeleteUserResponse": {
+      "type": "object",
+      "properties": {
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "nickname": {
+          "type": "string"
+        }
+      }
+    },
+    "api.GetPrivetChatHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "api.GetServerChatHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "api.GetServerResponse": {
+      "type": "object",
+      "properties": {
+        "aboutServer": {
+          "type": "string"
+        },
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "api.GetUserResponse": {
+      "type": "object",
+      "properties": {
+        "aboutUser": {
+          "type": "string"
+        },
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "nickname": {
+          "type": "string"
+        }
+      }
+    },
+    "api.InviteToServerRequest": {
+      "type": "object",
+      "required": [
+        "userId"
+      ],
+      "properties": {
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "api.ListFriendshipResponse": {
+      "type": "object",
+      "properties": {
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "nickname": {
+          "type": "string"
+        }
+      }
+    },
+    "api.MessageSendRequest": {
+      "type": "object",
+      "properties": {
+        "consumerId": {
+          "type": "integer"
+        },
+        "content": {
+          "type": "string"
+        },
+        "producerId": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.RequestFriendshipRequest": {
+      "type": "object",
+      "required": [
+        "fromUserID",
+        "toUserID"
+      ],
+      "properties": {
+        "fromUserID": {
+          "type": "string"
+        },
+        "toUserID": {
+          "type": "string"
+        }
+      }
+    },
+    "api.SearchServerResponse": {
+      "type": "object",
+      "properties": {
+        "aboutServer": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "serverName": {
+          "type": "string"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "api.SearchUserResponse": {
+      "type": "object",
+      "properties": {
+        "aboutUser": {
+          "type": "string"
+        },
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "nickname": {
+          "type": "string"
+        }
+      }
+    },
+    "api.ServerListResponse": {
+      "type": "object",
+      "properties": {
+        "hostServers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subscribeServers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "api.SubscribeServerRequest": {
+      "type": "object",
+      "required": [
+        "userId"
+      ],
+      "properties": {
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "api.UnsubscribeServerRequest": {
+      "type": "object",
+      "required": [
+        "userId"
+      ],
+      "properties": {
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "api.UpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "aboutUser": {
+          "type": "string"
+        },
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "api.UpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "aboutUser": {
+          "type": "string"
+        },
+        "avatarPhotoUrl": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "nickname": {
+          "type": "string"
+        }
+      }
+    },
+    "api.UploadFileResponse": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "api.errorResp": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

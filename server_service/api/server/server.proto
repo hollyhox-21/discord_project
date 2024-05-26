@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package github.com.hollyhox_21.discord_project.server_service;
+
+import "server/messages.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+option go_package = "github.com/hollyhox-21/discord_project/server_service/pkg/api/server;server";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Server service";
+    version: "1.0";
+    contact: {
+      name: "";
+    };
+  };
+  external_docs: {
+    url: "";
+    description: "Сервис передачи информации о сервере";
+  };
+  schemes: HTTP;
+  schemes: HTTPS;
+};
+
+service ServerService {
+  rpc ServerInfo(ServerInfoRequest) returns (ServerInfoResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/server/{server_id}"
+    };
+  }
+  rpc ServerList(ServerListRequest) returns (ServerListResponse) {
+    option (google.api.http) = {
+      get: "/v1/server/user/{user_id}"
+    };
+  }
+  rpc CreateServer(CreateServerRequest) returns (CreateServerResponse) {
+    option (google.api.http) = {
+      post : "/api/v1/server"
+      body: "*"
+    };
+  }
+  rpc InviteToServer(InviteToServerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/server/invite/{server_id}"
+      body: "*"
+    };
+  }
+  rpc SubscribeServer(SubscribeServerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/server/subscribe/{server_id}"
+    };
+  }
+  rpc UnsubscribeServer(UnsubscribeServerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post : "/v1/server/unsubscribe/{server_id}"
+    };
+  }
+}

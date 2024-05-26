@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package github.com.hollyhox_21.discord_project.user_profile_service;
+
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/hollyhox-21/discord_project/user_profile_service/pkg/api/user_profile;user_profile";
+
+message ProfileInfo {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ProfileInfo"
+      description: "ProfileInfo - информация профиля"
+    }
+  };
+  string  nickname = 1;
+  string  email = 2;
+  string  about_user = 3;
+  string  avatar_profile_url = 4;
+}
+
+message Profile {
+  // user_id - уникальный идентификатор пользователя
+  uint64      user_id = 1 [json_name = "user_id"];
+  // info - информация о пользователе
+  ProfileInfo info = 2 [json_name = "info"];
+}
+
+// GetProfileRequest - запрос информации о пользователе
+message GetProfileRequest {
+  // user_id - уникальный идентификатор пользователя
+  uint64 user_id = 1 [json_name = "user_id"];
+}
+
+// GetProfileResponse - ответ с информацией о пользователе
+message GetProfileResponse {
+  Profile profile = 1 [json_name = "profile"];
+}
+
+// CreateProfileRequest - запрос на создание профиля
+message CreateProfileRequest {
+  string nickname = 1 [json_name = "nickname", (buf.validate.field).required = true, (google.api.field_behavior) = REQUIRED];
+  string email = 2 [json_name = "email", (buf.validate.field).required = true, (google.api.field_behavior) = REQUIRED];
+  string password = 3 [json_name = "password", (buf.validate.field).required = true, (google.api.field_behavior) = REQUIRED];
+  string about_user = 4 [json_name = "about"];
+  string avatar_photo_url = 5 [json_name = "avatar_photo_url"];
+}
+
+// CreateProfileResponse - ответ на создание профиля
+message CreateProfileResponse {
+  uint64 user_id = 1  [json_name = "user_id"];
+}
+
+// UpdateProfileRequest - запрос на обновление профиля
+message UpdateProfileRequest {
+  uint64 user_id = 1 [json_name = "user_id"];
+  string nickname = 2 [json_name = "nickname"];
+  string email = 3 [json_name = "email"];
+  string about_user = 4 [json_name = "about_user"];
+  string avatar_photo_url = 5 [json_name = "avatar_photo_url"];
+}
+
+// UpdateProfileResponse - ответ на обновление профиля
+message UpdateProfileResponse {
+  Profile profile = 1 [json_name = "profile"];
+}
+
+// DeleteProfileRequest - запрос на удаление профиля
+message DeleteProfileRequest {
+  uint64 user_id = 1 [json_name = "user_id"];
+}
+
+// DeleteProfileResponse - ответ на удаление профиля
+message DeleteProfileResponse {
+  uint64 user_id = 1 [json_name = "user_id"];
+}

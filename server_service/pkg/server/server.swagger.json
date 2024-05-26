@@ -1,0 +1,332 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Server service",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "ServerService"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/server": {
+      "post": {
+        "operationId": "ServerService_CreateServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/server_serviceCreateServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/server_serviceCreateServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/api/v1/server/{serverId}": {
+      "get": {
+        "operationId": "ServerService_ServerInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/server_serviceServerInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/v1/server/invite/{serverId}": {
+      "post": {
+        "operationId": "ServerService_InviteToServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServerServiceInviteToServerBody"
+            }
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/v1/server/subscribe/{serverId}": {
+      "post": {
+        "operationId": "ServerService_SubscribeServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/v1/server/unsubscribe/{serverId}": {
+      "post": {
+        "operationId": "ServerService_UnsubscribeServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/v1/server/user/{userId}": {
+      "get": {
+        "operationId": "ServerService_ServerList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/server_serviceServerListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ServerServiceInviteToServerBody": {
+      "type": "object"
+    },
+    "discord_projectserver_serviceServerInfo": {
+      "type": "object",
+      "properties": {
+        "nickname": {
+          "type": "string"
+        },
+        "aboutServer": {
+          "type": "string"
+        },
+        "avatarServerUrl": {
+          "type": "string"
+        }
+      },
+      "description": "ProfileInfo - информация профиля",
+      "title": "ProfileInfo"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "server_serviceCreateServerRequest": {
+      "type": "object",
+      "properties": {
+        "serverName": {
+          "type": "string"
+        },
+        "aboutServer": {
+          "type": "string"
+        },
+        "avatarServerUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "serverName"
+      ]
+    },
+    "server_serviceCreateServerResponse": {
+      "type": "object",
+      "properties": {
+        "server_id": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "server_serviceServer": {
+      "type": "object",
+      "properties": {
+        "server_id": {
+          "type": "string",
+          "format": "uint64",
+          "title": "user_id - уникальный идентификатор пользователя"
+        },
+        "info": {
+          "$ref": "#/definitions/discord_projectserver_serviceServerInfo",
+          "title": "info - информация о пользователе"
+        }
+      }
+    },
+    "server_serviceServerInfoResponse": {
+      "type": "object",
+      "properties": {
+        "server": {
+          "$ref": "#/definitions/server_serviceServer"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "server_serviceServerListResponse": {
+      "type": "object"
+    }
+  },
+  "externalDocs": {
+    "description": "Сервис передачи информации о сервере"
+  }
+}

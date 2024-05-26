@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package github.com.hollyhox_21.discord_project.user_profile_service;
+
+import "user_profile/messages.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+
+option go_package = "github.com/hollyhox-21/discord_project/user_profile_service/pkg/api/user_profile;user_profile";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "User profile service";
+    version: "1.0";
+    contact: {
+      name: "";
+    };
+  };
+  external_docs: {
+    url: "";
+    description: "Сервис передачи информации о пользователе";
+  };
+  host: "0.0.0.0:8080";
+  schemes: HTTP;
+  schemes: HTTPS;
+};
+
+service UserProfileService {
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/user/{user_id}"
+    };
+  }
+  rpc CreateProfile(CreateProfileRequest) returns (CreateProfileResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/user"
+      body: "*"
+    };
+  }
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/user/{user_id}"
+      body: "*"
+    };
+  }
+  rpc DeleteProfile(DeleteProfileRequest) returns (DeleteProfileResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/user/{user_id}"
+    };
+  }
+}

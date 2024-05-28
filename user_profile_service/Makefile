@@ -4,7 +4,7 @@ LOCAL_BIN:=$(CURDIR)/bin
 VENDOR_PROTO_PATH := $(CURDIR)/vendor.protobuf
 
 # Путь до сгенеренных .pb.go файлов
-PKG_PROTO_PATH := $(CURDIR)/pkg
+PKG_PROTO_PATH := $(CURDIR)/pkg/user_profile
 
 .bin-deps:
 	$(info Installing binary dependencies...)
@@ -88,6 +88,24 @@ docs:
 # либа к swag https://github.com/swaggo/swag
 	$(LOCAL_BIN)/swag fmt
 	$(LOCAL_BIN)/swag init --outputTypes "go,json" --parseInternal -g cmd/main.go
+
+update-swagger:
+	go get -u github.com/rakyll/statik
+
+	rm -rf /tmp/swagger-ui
+	git clone https://github.com/swagger-api/swagger-ui.git ./tmp/swagger-ui
+
+	cd /tmp/swagger-ui; \
+		mkdir ./html; \
+		cat ./dist/index.html | perl -pe 's/https?:\/\/petstore.swagger.io\/v2\///g' > ./html/index.html; \
+		cp ./dist/oauth2-redirect.html ./html; \
+		cp ./dist/*.js ./html; \
+		cp ./dist/*.css ./html; \
+		cp ./dist/*.png ./html
+
+	statik -dest ./ -f -p swagger -src ./tmp/swagger-ui/html -ns scratch
+
+	#rm -fr /tmp/swagger-ui
 
 # Объявляем, что текущие команды не являются файлами и
 # интсрументируем Makefile не искать изменения в файловой системе

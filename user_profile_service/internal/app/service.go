@@ -1,9 +1,12 @@
 package app
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/bufbuild/protovalidate-go"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"google.golang.org/grpc"
 
 	pb "github.com/hollyhox-21/discord_project/user_profile_service/pkg/user_profile"
 )
@@ -34,4 +37,12 @@ func NewImplementation() (*Implementation, error) {
 	srv.Validator = validator
 
 	return srv, nil
+}
+
+func (i *Implementation) Register() (*grpc.ServiceDesc, any) {
+	return &pb.UserProfileService_ServiceDesc, i
+}
+
+func (i *Implementation) RegisterMux(ctx context.Context, mux *runtime.ServeMux) error {
+	return pb.RegisterUserProfileServiceHandlerServer(ctx, mux, i)
 }

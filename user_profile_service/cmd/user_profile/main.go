@@ -4,16 +4,16 @@ import (
 	"context"
 	"log"
 
-	"google.golang.org/grpc"
-
 	"github.com/hollyhox-21/discord_project/user_profile_service/internal/app"
-	"github.com/hollyhox-21/discord_project/user_profile_service/internal/server"
+	"github.com/hollyhox-21/discord_project/user_profile_service/internal/config"
+	server_v2 "github.com/hollyhox-21/discord_project/user_profile_service/internal/server_v2"
 )
 
 func main() {
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+
+	cfg := config.Parse(ctx)
 
 	// init repo
 	// init kafka
@@ -24,15 +24,7 @@ func main() {
 		log.Fatalf("failed to create server: %v", err)
 	}
 
-	// delivery
-	config := server.Config{
-		GRPCGatewayPort:        "8080",
-		GRPCPort:               "8081",
-		INFOport:               "8082",
-		ChainUnaryInterceptors: []grpc.UnaryServerInterceptor{},
-	}
-
-	srv, err := server.NewServer(ctx, config, impl)
+	srv, err := server_v2.NewServer(ctx, cfg.ServerConfig, impl)
 	if err != nil {
 		log.Fatalln(err)
 	}
